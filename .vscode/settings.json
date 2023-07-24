@@ -1,0 +1,6 @@
+{
+    "files.exclude": {
+        "**/__pycache__": true
+    },
+    "robot.pythonpath": ["${workspaceRoot}", "${workspaceRoot}/resources/libs"]
+}
