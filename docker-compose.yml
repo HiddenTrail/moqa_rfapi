@@ -10,9 +10,7 @@ services:
       - ./:/opt/robotfw/tests
     command:
       - robot
-      - --variablefile=./environments/test_env.py
-      - --variable=HEADLESS:True
-      - --variable=DOCKER_RUN:True
+      - --variablefile=${VARIABLE_FILE:-./environments/test_env.py}
       - --skip=skip
       - --loglevel=${LOG_LEVEL:-INFO}
       - --outputdir=${OUTPUT_DIR:-testresults}
@@ -20,5 +18,5 @@ services:
       - --output=TestRun.xml
       - --log=TestRun.html
       - --report=TestReport.html
-      - ${TESTS_TAG:-}
-      - .
+      - ${TESTS_TAG:---i=api}
+      - ./tests/.
