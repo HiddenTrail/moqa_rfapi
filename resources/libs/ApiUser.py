@@ -48,11 +48,7 @@ class ApiUser(Session):
         response = self.post(f'{auth_url}/samuli-paasimaa-ht/fake_auth/login', json=payload)
         response.raise_for_status()
         json_response = response.json()
-        try:
-            assert json_response['username']
-            assert json_response['password']
-        except KeyError:
-            raise AssertionError('username and/or password not present in the response')
+        assert 'username' and 'password' in json_response, 'username and/or password not present in the response'
         return json_response
 
     def get_users(self):
