@@ -31,14 +31,12 @@ class ApiUser(Session):
         json_response = response.json()
         try:
             self.access_token = json_response['access_token']
-            assert True
         except KeyError:
-            assert False, 'access_token not present in the response'
+            raise AssertionError('access_token not present in the response')
         try:
             self.token_type = json_response['token_type']
-            assert True
         except KeyError:
-            assert False, 'token_type not present in the response'
+            raise AssertionError('token_type not present in the response')
         self.headers['Authorization'] = f'{self.token_type} {self.access_token}'
 
     def login_user(self, auth_url):
@@ -49,6 +47,13 @@ class ApiUser(Session):
         logging.info(f'Payload {payload}')
         response = self.post(f'{auth_url}/samuli-paasimaa-ht/fake_auth/login', json=payload)
         response.raise_for_status()
+        json_response = response.json()
+        try:
+            assert json_response['username']
+            assert json_response['password']
+        except KeyError:
+            raise AssertionError('username and/or password not present in the response')
+        return json_response
 
     def get_users(self):
         response = self.get('/users')
@@ -57,10 +62,8 @@ class ApiUser(Session):
         user_id = 1
         for user in json_response:
             try:
-                assert user['id'] == user_id
+                assert user['id'] == user_id, f'User id not as expected. Should be {user_id} but was {user["id"]}'
             except KeyError:
-                assert False, 'id not present in the response'
-            except AssertionError:
-                assert False, f'User id not as expected. Should be {user_id} but was {user["id"]}'
+                raise AssertionError('id not present in the response')
             user_id += 1
         return json_response
