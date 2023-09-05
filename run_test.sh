@@ -80,7 +80,7 @@ while getopts "dt:pv:l:sh" opt; do
       ;;
     h|* )
       echo "Usage:"
-      echo "-d    Run with Docker. Default is ${docker}. Always runs as headless."
+      echo "-d    Run with Docker. Default is ${docker}."
       echo "-t    Test tag. Default is empty."
       echo "-p    Preserve testresults from previous runs."
       echo "-v    Variable file. Default is ${variable_file}."
