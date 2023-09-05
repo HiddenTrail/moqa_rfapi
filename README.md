@@ -21,6 +21,11 @@ Tests can be run by installing required software in your computer or using docke
 
 Use the run_test.sh script to run the tests.
 
+If using Mac give permissions to execute the script:
+``` shell
+chmod +x ./run_test.sh
+```
+
 Script has a help option to list all the available options:
 ``` shell
 ./run_test.sh -h
