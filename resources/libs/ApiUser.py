@@ -48,7 +48,8 @@ class ApiUser(Session):
         response = self.post(f'{auth_url}/samuli-paasimaa-ht/fake_auth/login', json=payload)
         response.raise_for_status()
         json_response = response.json()
-        assert 'username' and 'password' in json_response, 'username and/or password not present in the response'
+        assert 'username' and 'password' in json_response, \
+            'username and/or password not present in the response'
         return json_response
 
     def get_users(self):
@@ -58,7 +59,8 @@ class ApiUser(Session):
         user_id = 1
         for user in json_response:
             try:
-                assert user['id'] == user_id, f'User id not as expected. Should be {user_id} but was {user["id"]}'
+                assert user['id'] == user_id, \
+                    f'User id not as expected. Should be {user_id} but was {user["id"]}'
             except KeyError:
                 raise AssertionError('id not present in the response')
             user_id += 1
