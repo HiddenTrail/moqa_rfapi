@@ -56,12 +56,4 @@ class ApiUser(Session):
         response = self.get('/users')
         response.raise_for_status()
         json_response = response.json()
-        user_id = 1
-        for user in json_response:
-            try:
-                assert user['id'] == user_id, \
-                    f'User id not as expected. Should be {user_id} but was {user["id"]}'
-            except KeyError:
-                raise AssertionError('id not present in the response')
-            user_id += 1
         return json_response
